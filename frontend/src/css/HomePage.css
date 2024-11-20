@@ -1,0 +1,93 @@
+/* Main container */
+.homepage-container {
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    padding-top: 30px;
+  }
+  
+  .landing-image-container {
+    position: relative;
+    text-align: center;
+    color: white;
+    margin-top: 20px;
+  }
+  
+  .landing-image {
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    filter: brightness(85%); /* Slightly darkens the image for better text visibility */
+  }
+  
+  .landing-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  
+  .landing-text h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #ffffff;
+  }
+  
+  .landing-text p {
+    font-size: 1.2rem;
+    color: #e0e0e0;
+  }
+  
+
+  /* Latest Reviews Section */
+.latest-reviews-container {
+    padding: 2rem 1rem;
+    background-color: #ffffff;
+    border-top: 1px solid #ddd;
+  }
+  
+  .section-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
+  
+  .review-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem; /* Space between each review card */
+  }
+  
+  .review-card-centered {
+    width: 80%;
+    background: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+    padding: 1.5rem;
+    border: 2px solid #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .review-card-centered:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+  }
+  
+  .review-card-centered h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .review-card-centered p {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+  }
+  
+  .stars {
+    margin: 0.5rem 0;
+  }
