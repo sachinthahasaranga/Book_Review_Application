@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { getAllReviews } from "../services/api";
 import ReactStars from "react-rating-stars-component";
+import Footer from "../components/Footer";
+import AOS from "aos"; // Import AOS
+import "aos/dist/aos.css"; // Import AOS styles
 import "../css/HomePage.css";
 
 const HomePage = () => {
@@ -19,6 +22,8 @@ const HomePage = () => {
     };
 
     fetchLatestReviews();
+
+    AOS.init({ duration: 1000 }); // Initialize AOS with a 1000ms animation duration
   }, []);
 
   return (
@@ -36,8 +41,13 @@ const HomePage = () => {
       <div id="latest-reviews" className="latest-reviews-container">
         <h2 className="section-title">Latest Reviews</h2>
         <div className="review-list">
-          {latestReviews.map((review) => (
-            <div className="review-card-centered" key={review._id}>
+          {latestReviews.map((review, index) => (
+            <div
+              className="review-card-centered"
+              key={review._id}
+              data-aos="fade-left" // AOS animation
+              data-aos-delay={`${index * 100}`}
+            >
               <h3>{review.title}</h3>
               <p><strong>Author:</strong> {review.author}</p>
               <p>{review.review.substring(0, 100)}...</p> {/* Shortened review */}
@@ -55,6 +65,7 @@ const HomePage = () => {
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

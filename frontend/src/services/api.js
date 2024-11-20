@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:5000/api"; // Update with your backend URL
+const API_BASE_URL = "http://localhost:5000/api";
 
 // Fetch all reviews
 export const getAllReviews = async () => {
@@ -31,16 +31,27 @@ export const addReview = async (reviewData) => {
 };
 
 // Update review by ID
-export const updateReview = async (id, updatedReview) => {
-  const response = await axios.put(`${API_BASE_URL}/reviews/${id}`, updatedReview);
-  return response.data;
+export const updateReview = async (id, updatedData) => {
+  try {
+    const response = await axios.put(`${API_BASE_URL}/reviews/${id}`, updatedData);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating review:", error);
+    throw error;
+  }
 };
 
 // Delete review by ID
 export const deleteReview = async (id) => {
-  const response = await axios.delete(`${API_BASE_URL}/reviews/${id}`);
-  return response.data;
+  try {
+    const response = await axios.delete(`${API_BASE_URL}/reviews/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting review:", error);
+    throw error;
+  }
 };
+
 
 export const getReviewsByUser = async (userId) => {
   try {

@@ -11,7 +11,7 @@ const Navbar = () => {
         navigate("/login");
     };
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav className="navbar navbar-expand-lg navbar-dark fixed-top">
       <div className="container">
         <HashLink className="navbar-brand" smooth to="/">Book Review App</HashLink>
         <button

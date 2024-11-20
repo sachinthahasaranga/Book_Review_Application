@@ -1,7 +1,18 @@
 .navbar {
-    position: sticky;
-    top: 0;
-    z-index: 1030;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.7); 
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px);
+}
+
+  .nav-link,.navbar-brand {
+    text-decoration: none; 
+  }
+  
+  .nav-link:hover, .navbar-brand:hover {
+    text-decoration: none; 
   }
   

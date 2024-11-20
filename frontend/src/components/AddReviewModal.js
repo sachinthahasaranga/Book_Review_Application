@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { addReview } from "../services/api";
+import Swal from "sweetalert2"; // Import SweetAlert2
 import "../css/AddReviewModal.css";
 
 const AddReviewModal = ({ show, onClose, onSave }) => {
@@ -11,24 +12,35 @@ const AddReviewModal = ({ show, onClose, onSave }) => {
     rating: 0,
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
   const handleSave = async () => {
     setLoading(true);
-    setError("");
     const token = localStorage.getItem("token");
     const userId = JSON.parse(atob(token.split(".")[1])).id; // Decode user ID from token
-
+  
     try {
-        const response = await addReview({ ...newReview, userId }); // Use the function
-        onSave(response.review); // Pass the saved review back to the parent
-        setNewReview({ title: "", author: "", review: "", rating: 0 }); // Reset form
-        onClose(); // Close the modal
-      } catch (err) {
-        setError(err.response?.data?.message || "Failed to add review");
-      } finally {
-        setLoading(false);
-      }
+      const response = await addReview({ ...newReview, userId });
+      const createdReview = response.review;
+      onSave(createdReview); 
+      setNewReview({ title: "", author: "", review: "", rating: 0 });
+      onClose();
+  
+      Swal.fire({
+        icon: "success",
+        title: "Review Added!",
+        text: "Your review has been successfully added.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Failed to Add Review",
+        text: err.response?.data?.message || "Something went wrong. Please try again.",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!show) return null;
@@ -37,7 +49,6 @@ const AddReviewModal = ({ show, onClose, onSave }) => {
     <div className="modal-overlay">
       <div className="modal-content">
         <h2>Add New Review</h2>
-        {error && <p className="error-text">{error}</p>}
         <div className="form-group">
           <label>Title</label>
           <input

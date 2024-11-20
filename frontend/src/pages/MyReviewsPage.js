@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import { getReviewsByUser } from "../services/api";
+import { getReviewsByUser, deleteReview } from "../services/api"; // Import deleteReview
 import ReactStars from "react-rating-stars-component";
 import { FaEdit, FaTrashAlt, FaPlus } from "react-icons/fa";
 import { Tooltip } from "react-tooltip";
 import AddReviewModal from "../components/AddReviewModal"; 
-import ReviewDetailModal from "../components/ReviewDetailModal"; // Import the detail modal
+import ReviewDetailModal from "../components/ReviewDetailModal";
+import EditReviewModal from "../components/EditReviewModal";
+import Swal from "sweetalert2"; 
 import "../css/MyReviewsPage.css";
+import Footer from "../components/Footer";
 
 const MyReviewsPage = () => {
   const [myReviews, setMyReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAddModal, setShowAddModal] = useState(false); 
-  const [showDetailModal, setShowDetailModal] = useState(false); // Toggle for detail modal
-  const [selectedReview, setSelectedReview] = useState(null); // Selected review details
+  const [showDetailModal, setShowDetailModal] = useState(false); 
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [selectedReview, setSelectedReview] = useState(null); 
 
   const navigate = useNavigate();
 
@@ -40,22 +44,50 @@ const MyReviewsPage = () => {
     fetchMyReviews();
   }, []);
 
-  const handleDelete = (reviewId) => {
-    console.log("Delete review with ID:", reviewId);
+  const handleDelete = async (reviewId) => {
+    try {
+      await deleteReview(reviewId); 
+      setMyReviews(myReviews.filter((review) => review._id !== reviewId)); 
+
+      // Show success alert
+      Swal.fire({
+        icon: "success",
+        title: "Deleted!",
+        text: "Your review has been deleted successfully.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      console.error("Error deleting review:", error);
+      // Show error alert
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to delete the review. Please try again later.",
+      });
+    }
   };
 
-  const handleEdit = (reviewId) => {
-    console.log("Edit review with ID:", reviewId);
+  const handleEdit = (review) => {
+    setSelectedReview(review); 
+    setShowEditModal(true); 
   };
 
   const handleSaveReview = (review) => {
-    console.log("New review submitted:", review);
-    setMyReviews([...myReviews, { ...review, _id: Date.now().toString() }]); // Add to local state
+    setMyReviews([...myReviews, review]); 
   };
 
   const handleReviewClick = (review) => {
-    setSelectedReview(review); // Set the selected review details
-    setShowDetailModal(true); // Open the detail modal
+    setSelectedReview(review); 
+    setShowDetailModal(true); 
+  };
+
+  const handleSaveEditedReview = (updatedReview) => {
+    setMyReviews(
+      myReviews.map((review) =>
+        review._id === updatedReview._id ? updatedReview : review
+      )
+    );
   };
 
   return (
@@ -71,7 +103,7 @@ const MyReviewsPage = () => {
               <div
                 className="review-card-centered"
                 key={review._id}
-                onClick={() => handleReviewClick(review)} // Open modal on click
+                onClick={() => handleReviewClick(review)} 
               >
                 <div className="review-content">
                   <div>
@@ -95,14 +127,14 @@ const MyReviewsPage = () => {
                     <FaEdit
                       className="edit-icon"
                       onClick={(e) => {
-                        e.stopPropagation(); // Prevent triggering the modal
-                        handleEdit(review._id);
+                        e.stopPropagation(); 
+                        handleEdit(review);
                       }}
                     />
                     <FaTrashAlt
                       className="delete-icon"
                       onClick={(e) => {
-                        e.stopPropagation(); // Prevent triggering the modal
+                        e.stopPropagation(); 
                         handleDelete(review._id);
                       }}
                     />
@@ -114,7 +146,6 @@ const MyReviewsPage = () => {
         ) : (
           <p>No reviews found for this user.</p>
         )}
-        {/* Floating Button with Tooltip */}
         <button
           className="floating-create-button"
           onClick={() => setShowAddModal(true)}
@@ -125,19 +156,25 @@ const MyReviewsPage = () => {
         <Tooltip id="add-review-tooltip" place="top" content="Add new Review" />
       </div>
 
-      {/* Add Review Modal */}
       <AddReviewModal
         show={showAddModal}
         onClose={() => setShowAddModal(false)}
         onSave={handleSaveReview}
       />
 
-      {/* Review Detail Modal */}
+      <EditReviewModal
+        show={showEditModal}
+        onClose={() => setShowEditModal(false)}
+        reviewData={selectedReview} // Pass selected review for editing
+        onSave={handleSaveEditedReview} // Update state after edit
+      />
+
       <ReviewDetailModal
         show={showDetailModal}
         onClose={() => setShowDetailModal(false)}
-        data={selectedReview} // Pass the selected review data
+        data={selectedReview} 
       />
+      <Footer/>
     </div>
   );
 };
