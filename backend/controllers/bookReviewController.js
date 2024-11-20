@@ -14,7 +14,7 @@ const getReviewsByUser = async (req, res) => {
   const { userId } = req.params;
 
   try {
-    const reviews = await Review.find({ userId }); // Fetch reviews by userId
+    const reviews = await BookReview.find({ userId }); // Fetch reviews by userId
     res.status(200).json(reviews);
   } catch (error) {
     console.error("Error fetching user reviews:", error);
