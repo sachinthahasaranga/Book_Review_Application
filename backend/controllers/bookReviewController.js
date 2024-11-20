@@ -20,6 +20,22 @@ const getReviewsByUser = async (req, res) => {
     }
   };
 
+const getReviewById = async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      const review = await BookReview.findById(id);
+  
+      if (!review) {
+        return res.status(404).json({ message: "Review not found" });
+      }
+  
+      res.status(200).json(review);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
 // Add a new review
 const addReview = async (req, res) => {
     const { title, author, review, rating, userId } = req.body;
@@ -38,5 +54,41 @@ const addReview = async (req, res) => {
     }
   };
 
+  // Delete a review
+const deleteReview = async (req, res) => {
+    const { id } = req.params;
+    try {
+      const review = await BookReview.findByIdAndDelete(id);
+  
+      if (!review) {
+        return res.status(404).json({ message: "Review not found" });
+      }
+  
+      res.status(200).json({ message: "Review deleted successfully" });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
 
-module.exports = { getReviews, addReview };
+  const updateReview = async (req, res) => {
+    const { id } = req.params;
+    const { title, author, review, rating } = req.body;
+  
+    try {
+      const updatedReview = await BookReview.findByIdAndUpdate(
+        id,
+        { title, author, review, rating },
+        { new: true, runValidators: true }
+      );
+  
+      if (!updatedReview) {
+        return res.status(404).json({ message: "Review not found" });
+      }
+  
+      res.status(200).json({ message: "Review updated successfully", review: updatedReview });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
+module.exports = { getReviews, addReview, getReviewsByUser, deleteReview, updateReview, getReviewById };
