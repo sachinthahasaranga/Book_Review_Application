@@ -11,14 +11,16 @@ const getReviews = async (req, res) => {
 };
 
 const getReviewsByUser = async (req, res) => {
-    const { userId } = req.params;
-    try {
-      const reviews = await BookReview.find({ userId }).populate("userId", "name email");
-      res.status(200).json(reviews);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  };
+  const { userId } = req.params;
+
+  try {
+    const reviews = await Review.find({ userId }); // Fetch reviews by userId
+    res.status(200).json(reviews);
+  } catch (error) {
+    console.error("Error fetching user reviews:", error);
+    res.status(500).json({ message: "Error fetching reviews." });
+  }
+};
 
 const getReviewById = async (req, res) => {
     const { id } = req.params;

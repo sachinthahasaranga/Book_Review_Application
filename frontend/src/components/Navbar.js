@@ -11,7 +11,7 @@ const Navbar = () => {
         navigate("/login");
     };
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav className="navbar navbar-expand-lg navbar-dark fixed-top">
       <div className="container">
         <HashLink className="navbar-brand" smooth to="/">Book Review App</HashLink>
         <button
@@ -28,13 +28,16 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
+              <HashLink className="nav-link" smooth to="/">Home</HashLink>
+            </li>
+            <li className="nav-item">
               <HashLink className="nav-link" smooth to="/all-reviews">All Reviews</HashLink>
             </li>
             <li className="nav-item">
               <HashLink className="nav-link" smooth to="/#latest-reviews">Latest Reviews</HashLink>
             </li>
             <li className="nav-item">
-              <HashLink className="nav-link" smooth to="/add-review">Create Review</HashLink>
+              <HashLink className="nav-link" smooth to="/my-reviews">My Reviews</HashLink>
             </li>
             <li className="nav-item">
               <button className="btn btn-danger btn-sm" onClick={handleLogout}>

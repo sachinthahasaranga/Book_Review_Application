@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:5000/api"; // Update with your backend URL
+const API_BASE_URL = "http://localhost:5000/api";
 
 // Fetch all reviews
 export const getAllReviews = async () => {
@@ -10,26 +10,57 @@ export const getAllReviews = async () => {
 
 // Get review by ID
 export const getReviewById = async (id) => {
-  const response = await axios.get(`${API_BASE_URL}/reviews/${id}`);
-  return response.data;
+  try {
+    const response = await axios.get(`${API_BASE_URL}/reviews/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching review by ID:", error);
+    throw error;
+  }
 };
 
-// Add a new review
-export const addReview = async (review) => {
-  const response = await axios.post(`${API_BASE_URL}/reviews`, review);
-  return response.data;
+//add new review
+export const addReview = async (reviewData) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/reviews`, reviewData);
+    return response.data;
+  } catch (error) {
+    console.error("Error adding review:", error);
+    throw error;
+  }
 };
 
 // Update review by ID
-export const updateReview = async (id, updatedReview) => {
-  const response = await axios.put(`${API_BASE_URL}/reviews/${id}`, updatedReview);
-  return response.data;
+export const updateReview = async (id, updatedData) => {
+  try {
+    const response = await axios.put(`${API_BASE_URL}/reviews/${id}`, updatedData);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating review:", error);
+    throw error;
+  }
 };
 
 // Delete review by ID
 export const deleteReview = async (id) => {
-  const response = await axios.delete(`${API_BASE_URL}/reviews/${id}`);
-  return response.data;
+  try {
+    const response = await axios.delete(`${API_BASE_URL}/reviews/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting review:", error);
+    throw error;
+  }
+};
+
+
+export const getReviewsByUser = async (userId) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/reviews/reviews/${userId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user reviews:", error);
+    throw error;
+  }
 };
 
 export const registerUser = async (userData) => {
