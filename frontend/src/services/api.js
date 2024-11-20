@@ -1,6 +1,8 @@
 import axios from "axios";
 
 const API_BASE_URL = "http://localhost:5000/api";
+// const API_BASE_URL = "https://book-review-application-euu3.vercel.app/api";
+
 
 // Fetch all reviews
 export const getAllReviews = async () => {
