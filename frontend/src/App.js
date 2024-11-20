@@ -6,6 +6,7 @@ import RegisterPage from "./pages/RegisterPage";
 import AddBookPage from "./pages/AddBookPage";
 import BookDetail from "./components/BookDetail";
 import PrivateRoute from "./components/PrivateRoute";
+import AllReviewsPage from "./pages/AllReviewsPage";
 
 const App = () => {
   return (
@@ -37,6 +38,14 @@ const App = () => {
           element={
             <PrivateRoute>
               <BookDetail />
+            </PrivateRoute>
+          }
+        />
+         <Route
+          path="/all-reviews"
+          element={
+            <PrivateRoute>
+              <AllReviewsPage />
             </PrivateRoute>
           }
         />

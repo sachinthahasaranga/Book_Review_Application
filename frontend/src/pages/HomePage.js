@@ -33,9 +33,9 @@ const HomePage = () => {
       </div>
 
       {/* Latest Reviews Section */}
-      <div className="latest-reviews-container">
+      <div id="latest-reviews" className="latest-reviews-container">
         <h2 className="section-title">Latest Reviews</h2>
-        <div className="reviews-list">
+        <div className="review-list">
           {latestReviews.map((review) => (
             <div className="review-card-centered" key={review._id}>
               <h3>{review.title}</h3>
