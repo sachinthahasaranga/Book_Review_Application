@@ -10,14 +10,24 @@ export const getAllReviews = async () => {
 
 // Get review by ID
 export const getReviewById = async (id) => {
-  const response = await axios.get(`${API_BASE_URL}/reviews/${id}`);
-  return response.data;
+  try {
+    const response = await axios.get(`${API_BASE_URL}/reviews/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching review by ID:", error);
+    throw error;
+  }
 };
 
-// Add a new review
-export const addReview = async (review) => {
-  const response = await axios.post(`${API_BASE_URL}/reviews`, review);
-  return response.data;
+//add new review
+export const addReview = async (reviewData) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/reviews`, reviewData);
+    return response.data;
+  } catch (error) {
+    console.error("Error adding review:", error);
+    throw error;
+  }
 };
 
 // Update review by ID
@@ -30,6 +40,16 @@ export const updateReview = async (id, updatedReview) => {
 export const deleteReview = async (id) => {
   const response = await axios.delete(`${API_BASE_URL}/reviews/${id}`);
   return response.data;
+};
+
+export const getReviewsByUser = async (userId) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/reviews/reviews/${userId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user reviews:", error);
+    throw error;
+  }
 };
 
 export const registerUser = async (userData) => {

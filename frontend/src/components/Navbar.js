@@ -34,7 +34,7 @@ const Navbar = () => {
               <HashLink className="nav-link" smooth to="/#latest-reviews">Latest Reviews</HashLink>
             </li>
             <li className="nav-item">
-              <HashLink className="nav-link" smooth to="/add-review">Create Review</HashLink>
+              <HashLink className="nav-link" smooth to="/my-reviews">My Reviews</HashLink>
             </li>
             <li className="nav-item">
               <button className="btn btn-danger btn-sm" onClick={handleLogout}>
