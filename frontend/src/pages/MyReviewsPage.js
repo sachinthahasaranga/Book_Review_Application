@@ -1,25 +1,23 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import { getReviewsByUser, deleteReview } from "../services/api"; // Import deleteReview
-import ReactStars from "react-rating-stars-component";
+import { getReviewsByUser, deleteReview } from "../services/api";
+import StarRatings from "react-star-ratings"; // Replace ReactStars with StarRatings
 import { FaEdit, FaTrashAlt, FaPlus } from "react-icons/fa";
 import { Tooltip } from "react-tooltip";
-import AddReviewModal from "../components/AddReviewModal"; 
+import AddReviewModal from "../components/AddReviewModal";
 import ReviewDetailModal from "../components/ReviewDetailModal";
 import EditReviewModal from "../components/EditReviewModal";
-import Swal from "sweetalert2"; 
+import Swal from "sweetalert2";
 import "../css/MyReviewsPage.css";
 import Footer from "../components/Footer";
 
 const MyReviewsPage = () => {
   const [myReviews, setMyReviews] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showAddModal, setShowAddModal] = useState(false); 
-  const [showDetailModal, setShowDetailModal] = useState(false); 
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showDetailModal, setShowDetailModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [selectedReview, setSelectedReview] = useState(null); 
-
-  
+  const [selectedReview, setSelectedReview] = useState(null);
 
   useEffect(() => {
     const fetchMyReviews = async () => {
@@ -45,8 +43,8 @@ const MyReviewsPage = () => {
 
   const handleDelete = async (reviewId) => {
     try {
-      await deleteReview(reviewId); 
-      setMyReviews(myReviews.filter((review) => review._id !== reviewId)); 
+      await deleteReview(reviewId);
+      setMyReviews(myReviews.filter((review) => review._id !== reviewId));
 
       // Show success alert
       Swal.fire({
@@ -68,17 +66,17 @@ const MyReviewsPage = () => {
   };
 
   const handleEdit = (review) => {
-    setSelectedReview(review); 
-    setShowEditModal(true); 
+    setSelectedReview(review);
+    setShowEditModal(true);
   };
 
   const handleSaveReview = (review) => {
-    setMyReviews([...myReviews, review]); 
+    setMyReviews([review, ...myReviews]);
   };
 
   const handleReviewClick = (review) => {
-    setSelectedReview(review); 
-    setShowDetailModal(true); 
+    setSelectedReview(review);
+    setShowDetailModal(true);
   };
 
   const handleSaveEditedReview = (updatedReview) => {
@@ -102,7 +100,7 @@ const MyReviewsPage = () => {
               <div
                 className="review-card-centered"
                 key={review._id}
-                onClick={() => handleReviewClick(review)} 
+                onClick={() => handleReviewClick(review)}
               >
                 <div className="review-content">
                   <div>
@@ -112,13 +110,12 @@ const MyReviewsPage = () => {
                     </p>
                     <p>{review.review.substring(0, 150)}...</p>
                     <div className="stars">
-                      <ReactStars
-                        count={5}
-                        value={review.rating}
-                        size={24}
-                        activeColor="#ffd700"
-                        isHalf={true}
-                        edit={false}
+                      <StarRatings
+                        rating={review.rating}
+                        starRatedColor="#ffd700"
+                        numberOfStars={5}
+                        starDimension="24px"
+                        starSpacing="4px"
                       />
                     </div>
                   </div>
@@ -126,14 +123,14 @@ const MyReviewsPage = () => {
                     <FaEdit
                       className="edit-icon"
                       onClick={(e) => {
-                        e.stopPropagation(); 
+                        e.stopPropagation();
                         handleEdit(review);
                       }}
                     />
                     <FaTrashAlt
                       className="delete-icon"
                       onClick={(e) => {
-                        e.stopPropagation(); 
+                        e.stopPropagation();
                         handleDelete(review._id);
                       }}
                     />
@@ -164,16 +161,16 @@ const MyReviewsPage = () => {
       <EditReviewModal
         show={showEditModal}
         onClose={() => setShowEditModal(false)}
-        reviewData={selectedReview} // Pass selected review for editing
-        onSave={handleSaveEditedReview} // Update state after edit
+        reviewData={selectedReview}
+        onSave={handleSaveEditedReview}
       />
 
       <ReviewDetailModal
         show={showDetailModal}
         onClose={() => setShowDetailModal(false)}
-        data={selectedReview} 
+        data={selectedReview}
       />
-      <Footer/>
+      <Footer />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import ReactStars from "react-rating-stars-component"; // Import ReactStars for star ratings
+import StarRatings from "react-star-ratings";
 import "../css/ReviewDetailModal.css";
 
 const ReviewDetailModal = ({ show, onClose, data }) => {
@@ -13,13 +13,12 @@ const ReviewDetailModal = ({ show, onClose, data }) => {
         <p className="review-modal-text">{data?.review}</p>
         <div className="review-modal-stars">
           <strong>Rating:</strong>
-          <ReactStars
-            count={5}
-            value={data?.rating || 0} // Use the rating from the data, default to 0
-            size={24}
-            activeColor="#ffd700"
-            isHalf={true} // Allow half stars
-            edit={false} // Read-only stars
+          <StarRatings
+            rating={data?.rating || 0} 
+            starRatedColor="#ffd700"
+            numberOfStars={5}
+            starDimension="24px"
+            starSpacing="4px"
           />
         </div>
         <button className="review-modal-close-btn" onClick={onClose}>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ReactStars from "react-rating-stars-component";
+import StarRatings from "react-star-ratings";
 import { updateReview } from "../services/api";
 import Swal from "sweetalert2";
 import "../css/AddReviewModal.css";
@@ -9,10 +9,9 @@ const EditReviewModal = ({ show, onClose, reviewData, onSave }) => {
     title: "",
     author: "",
     review: "",
-    rating: "",
+    rating: 0,
   });
 
-  // Synchronize updatedReview with reviewData when modal opens or reviewData changes
   useEffect(() => {
     if (reviewData && show) {
       setUpdatedReview({
@@ -20,18 +19,18 @@ const EditReviewModal = ({ show, onClose, reviewData, onSave }) => {
         author: reviewData.author,
         review: reviewData.review,
         rating: reviewData.rating,
-        _id: reviewData._id, // Ensure the ID is carried over for updates
+        _id: reviewData._id,
       });
     }
-  }, [reviewData, show]); // Depend on both reviewData and show state
+  }, [reviewData, show]);
 
   const handleSave = async () => {
     try {
-      const response = await updateReview(updatedReview._id, updatedReview); // Update review API
-      onSave(response.review); // Notify parent about the updated review
-      onClose(); // Close modal
+      const response = await updateReview(updatedReview._id, updatedReview); 
+      onSave(response.review); 
+      onClose(); 
 
-      // Show success SweetAlert
+      
       Swal.fire({
         icon: "success",
         title: "Review Updated!",
@@ -40,7 +39,6 @@ const EditReviewModal = ({ show, onClose, reviewData, onSave }) => {
         timer: 1500,
       });
     } catch (err) {
-      // Show error SweetAlert
       Swal.fire({
         icon: "error",
         title: "Failed to Update Review",
@@ -86,13 +84,13 @@ const EditReviewModal = ({ show, onClose, reviewData, onSave }) => {
         </div>
         <div className="form-group">
           <label>Rating</label>
-          <ReactStars
-            count={5}
-            value={updatedReview.rating} // Controlled value
-            size={24}
-            activeColor="#ffd700"
-            isHalf={true}
-            onChange={(newRating) =>
+          <StarRatings
+            rating={updatedReview.rating} 
+            starRatedColor="#ffd700"
+            numberOfStars={5}
+            starDimension="24px"
+            starSpacing="4px"
+            changeRating={(newRating) =>
               setUpdatedReview({ ...updatedReview, rating: newRating })
             }
           />
