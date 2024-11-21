@@ -197,3 +197,11 @@
     margin-right: 0.5rem;
   }
   
+  .no-reviews-message {
+    text-align: center; 
+    font-size: 1.5rem; 
+    font-weight: bold; 
+    color: #666;
+    margin: 2rem 0;    
+  }
+  

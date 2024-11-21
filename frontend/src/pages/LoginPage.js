@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { loginUser } from "../services/api";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import "../css/LoginPage.css";
 
 const LoginPage = () => {
@@ -13,11 +14,25 @@ const LoginPage = () => {
 
     try {
       const response = await loginUser({ email, password });
-      alert("Login successful!");
+
+      Swal.fire({
+        icon: "success",
+        title: "Login Successful!",
+        text: "Welcome back!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
       localStorage.setItem("token", response.token);
       navigate("/");
     } catch (error) {
-      alert(error.message || "Login failed. Please try again.");
+
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: error.response?.data?.message || "Invalid email or password. Please try again.",
+      });
+      
     }
   };
 
@@ -49,7 +64,7 @@ const LoginPage = () => {
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary w-100">Log In</button>
+          <button type="submit" className="loginbtn w-100">Log In</button>
         </form>
         <div className="text-center mt-3">
           <small>Don't have an account? <a href="/register">Sign up</a></small>

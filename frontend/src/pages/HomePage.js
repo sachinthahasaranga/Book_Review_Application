@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { getAllReviews } from "../services/api";
 import StarRatings from "react-star-ratings";
-import Footer from "../components/Footer";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "../css/HomePage.css";
@@ -65,7 +64,6 @@ const HomePage = () => {
           ))}
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

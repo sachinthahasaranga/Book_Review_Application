@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { getAllReviews, getReviewById } from "../services/api";
-import StarRatings from "react-star-ratings"; // Import react-star-ratings
-import ReviewDetailModal from "../components/ReviewDetailModal"; 
+import StarRatings from "react-star-ratings"; 
+import ReviewDetailModal from "../components/ReviewDetailModal";
+import Swal from "sweetalert2"; 
 import "../css/AllReviewsPage.css";
-import Footer from "../components/Footer";
 
 const AllReviewsPage = () => {
   const [reviews, setReviews] = useState([]); 
@@ -27,7 +27,19 @@ const AllReviewsPage = () => {
     };
 
     fetchReviews();
-  }, []);
+  }, [])
+  
+  useEffect(() => {
+    if (filteredReviews.length === 0 && searchQuery) {
+      Swal.fire({
+        icon: "warning",
+        title: "No Reviews Found",
+        text: "Try searching for a different book or author.",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
+  }, [filteredReviews, searchQuery]);
 
   const handleSearchChange = (e) => {
     const query = e.target.value.toLowerCase();
@@ -118,7 +130,7 @@ const AllReviewsPage = () => {
                 <p>
                   <strong>Author:</strong> {review.author}
                 </p>
-                <p>{review.review.substring(0, 150)}...</p>
+                <p>{review.review.substring(0, 60)}...</p>
                 <div className="stars">
                   <StarRatings
                     rating={review.rating}
@@ -130,9 +142,7 @@ const AllReviewsPage = () => {
                 </div>
               </div>
             ))
-          ) : (
-            <p className="no-results">No reviews found. Try a different search.</p>
-          )}
+          ) : null}
         </div>
       </div>
 
@@ -141,7 +151,6 @@ const AllReviewsPage = () => {
         onClose={() => setShowModal(false)}
         data={selectedReview}
       />
-      <Footer />
     </div>
   );
 };

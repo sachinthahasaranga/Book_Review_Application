@@ -9,7 +9,6 @@ import ReviewDetailModal from "../components/ReviewDetailModal";
 import EditReviewModal from "../components/EditReviewModal";
 import Swal from "sweetalert2";
 import "../css/MyReviewsPage.css";
-import Footer from "../components/Footer";
 
 const MyReviewsPage = () => {
   const [myReviews, setMyReviews] = useState([]);
@@ -31,6 +30,15 @@ const MyReviewsPage = () => {
       try {
         const reviews = await getReviewsByUser(userId);
         setMyReviews(reviews);
+        if (reviews.length === 0) {
+          Swal.fire({
+            icon: "info",
+            title: "No Reviews Found",
+            text: "You have not added any reviews yet.",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        }
       } catch (error) {
         console.error("Error fetching reviews:", error);
       } finally {
@@ -108,7 +116,7 @@ const MyReviewsPage = () => {
                     <p>
                       <strong>Author:</strong> {review.author}
                     </p>
-                    <p>{review.review.substring(0, 150)}...</p>
+                    <p>{review.review.substring(0, 40)}...</p>
                     <div className="stars">
                       <StarRatings
                         rating={review.rating}
@@ -139,9 +147,7 @@ const MyReviewsPage = () => {
               </div>
             ))}
           </div>
-        ) : (
-          <p>No reviews found for this user.</p>
-        )}
+        ) : null}
         <button
           className="floating-create-button"
           onClick={() => setShowAddModal(true)}
@@ -170,7 +176,6 @@ const MyReviewsPage = () => {
         onClose={() => setShowDetailModal(false)}
         data={selectedReview}
       />
-      <Footer />
     </div>
   );
 };
