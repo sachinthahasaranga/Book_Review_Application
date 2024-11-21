@@ -9,7 +9,6 @@ import ReviewDetailModal from "../components/ReviewDetailModal";
 import EditReviewModal from "../components/EditReviewModal";
 import Swal from "sweetalert2";
 import "../css/MyReviewsPage.css";
-import Footer from "../components/Footer";
 
 const MyReviewsPage = () => {
   const [myReviews, setMyReviews] = useState([]);
@@ -108,7 +107,7 @@ const MyReviewsPage = () => {
                     <p>
                       <strong>Author:</strong> {review.author}
                     </p>
-                    <p>{review.review.substring(0, 150)}...</p>
+                    <p>{review.review.substring(0, 40)}...</p>
                     <div className="stars">
                       <StarRatings
                         rating={review.rating}
@@ -170,7 +169,6 @@ const MyReviewsPage = () => {
         onClose={() => setShowDetailModal(false)}
         data={selectedReview}
       />
-      <Footer />
     </div>
   );
 };

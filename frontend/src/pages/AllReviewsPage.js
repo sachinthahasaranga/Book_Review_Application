@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { getAllReviews, getReviewById } from "../services/api";
-import StarRatings from "react-star-ratings"; // Import react-star-ratings
+import StarRatings from "react-star-ratings"; 
 import ReviewDetailModal from "../components/ReviewDetailModal"; 
 import "../css/AllReviewsPage.css";
-import Footer from "../components/Footer";
 
 const AllReviewsPage = () => {
   const [reviews, setReviews] = useState([]); 
@@ -118,7 +117,7 @@ const AllReviewsPage = () => {
                 <p>
                   <strong>Author:</strong> {review.author}
                 </p>
-                <p>{review.review.substring(0, 150)}...</p>
+                <p>{review.review.substring(0, 60)}...</p>
                 <div className="stars">
                   <StarRatings
                     rating={review.rating}
@@ -141,7 +140,6 @@ const AllReviewsPage = () => {
         onClose={() => setShowModal(false)}
         data={selectedReview}
       />
-      <Footer />
     </div>
   );
 };

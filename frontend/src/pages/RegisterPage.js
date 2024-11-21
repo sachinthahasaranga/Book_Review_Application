@@ -58,7 +58,7 @@ const RegisterPage = () => {
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary w-100">Register</button>
+          <button type="submit" className="registerbtn w-100">Register</button>
         </form>
         <div className="text-center mt-3">
           <small>Already have an account? <a href="/login">Log in</a></small>
