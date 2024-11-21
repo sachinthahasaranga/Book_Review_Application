@@ -30,6 +30,15 @@ const MyReviewsPage = () => {
       try {
         const reviews = await getReviewsByUser(userId);
         setMyReviews(reviews);
+        if (reviews.length === 0) {
+          Swal.fire({
+            icon: "info",
+            title: "No Reviews Found",
+            text: "You have not added any reviews yet.",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        }
       } catch (error) {
         console.error("Error fetching reviews:", error);
       } finally {
@@ -138,9 +147,7 @@ const MyReviewsPage = () => {
               </div>
             ))}
           </div>
-        ) : (
-          <p>No reviews found for this user.</p>
-        )}
+        ) : null}
         <button
           className="floating-create-button"
           onClick={() => setShowAddModal(true)}
