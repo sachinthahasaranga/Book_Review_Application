@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { registerUser } from "../services/api";
+import Swal from "sweetalert2"; // Import SweetAlert
 import "../css/RegisterPage.css";
 
 const RegisterPage = () => {
@@ -12,10 +13,23 @@ const RegisterPage = () => {
 
     try {
       await registerUser({ name, email, password });
-      alert("Registration successful! You can now log in.");
-      window.location.href = "/login";
+      Swal.fire({
+        icon: "success",
+        title: "Registration Successful!",
+        text: "You can now log in.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1500);
     } catch (error) {
-      alert(error.message || "Registration failed. Please try again.");
+      Swal.fire({
+        icon: "error",
+        title: "Registration Failed",
+        text: error.message || "Please try again.",
+      });
     }
   };
 
