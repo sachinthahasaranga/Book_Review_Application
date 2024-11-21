@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { getReviewsByUser, deleteReview } from "../services/api"; // Import deleteReview
 import ReactStars from "react-rating-stars-component";
@@ -20,7 +19,7 @@ const MyReviewsPage = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedReview, setSelectedReview] = useState(null); 
 
-  const navigate = useNavigate();
+  
 
   useEffect(() => {
     const fetchMyReviews = async () => {
