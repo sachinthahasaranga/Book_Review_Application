@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { getAllReviews } from "../services/api";
-import ReactStars from "react-rating-stars-component";
+import StarRatings from "react-star-ratings";
 import Footer from "../components/Footer";
-import AOS from "aos"; 
+import AOS from "aos";
 import "aos/dist/aos.css";
 import "../css/HomePage.css";
 
@@ -50,15 +50,15 @@ const HomePage = () => {
             >
               <h3>{review.title}</h3>
               <p><strong>Author:</strong> {review.author}</p>
-              <p>{review.review.substring(0, 100)}...</p> 
+              <p>{review.review.substring(0, 100)}...</p>
               <div className="stars">
-                <ReactStars
-                  count={5}
-                  value={review.rating}
-                  size={24}
-                  activeColor="#ffd700"
-                  isHalf={true}
-                  edit={false} 
+                <StarRatings
+                  rating={review.rating} 
+                  starRatedColor="#ffd700" 
+                  numberOfStars={5} 
+                  starDimension="24px" 
+                  starSpacing="4px" 
+                  name="rating"
                 />
               </div>
             </div>

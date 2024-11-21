@@ -62,7 +62,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem; /* Space between each review card */
+    gap: 1.5rem;
     
   }
   
@@ -97,4 +97,14 @@
   
   .stars {
     margin: 0.5rem 0;
+  }
+
+  .far {
+    font-size: 24px;
+    color: #ddd;
+  }
+  
+  .fas {
+    font-size: 24px;
+    color: #ffd700;
   }

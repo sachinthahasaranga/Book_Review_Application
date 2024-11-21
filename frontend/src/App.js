@@ -3,16 +3,13 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import BookDetail from "./components/BookDetail";
 import PrivateRoute from "./components/PrivateRoute";
 import AllReviewsPage from "./pages/AllReviewsPage";
 import MyReviewsPage from "./pages/MyReviewsPage";
 
-
-
 const App = () => {
   return (
-    <Router>
+    <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <Routes>
         {/* Public Routes */}
         <Route path="/login" element={<LoginPage />} />
@@ -28,14 +25,6 @@ const App = () => {
           }
         />
         <Route
-          path="/review/:id"
-          element={
-            <PrivateRoute>
-              <BookDetail />
-            </PrivateRoute>
-          }
-        />
-         <Route
           path="/all-reviews"
           element={
             <PrivateRoute>

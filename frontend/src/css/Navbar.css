@@ -12,6 +12,9 @@
   .nav-link,.navbar-brand {
     text-decoration: none; 
   }
+  .navbar-brand {
+    font-weight: bold; 
+  }
   
   .nav-link:hover, .navbar-brand:hover {
     text-decoration: none; 
@@ -19,17 +22,17 @@
   
   @media (max-width: 768px) {
     .navbar-nav {
-      text-align: center; /* Center the items */
-      width: 100%; /* Full width */
+      text-align: center; 
+      width: 100%; 
     }
   
     .navbar-nav .nav-item {
-      display: flex; /* Ensure items stack */
-      justify-content: center; /* Center items */
-      margin-bottom: 10px; /* Add spacing between items */
+      display: flex; 
+      justify-content: center; 
+      margin-bottom: 10px; 
     }
   
     .navbar-nav .btn {
-      margin: 0 auto; /* Center the button */
+      margin: 0 auto; 
     }
   }

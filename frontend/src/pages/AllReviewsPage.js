@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { getAllReviews, getReviewById } from "../services/api";
-import ReactStars from "react-rating-stars-component";
+import StarRatings from "react-star-ratings"; // Import react-star-ratings
 import ReviewDetailModal from "../components/ReviewDetailModal"; 
 import "../css/AllReviewsPage.css";
 import Footer from "../components/Footer";
@@ -14,7 +14,6 @@ const AllReviewsPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [sortOrder, setSortOrder] = useState("none");
 
-
   useEffect(() => {
     const fetchReviews = async () => {
       try {
@@ -26,11 +25,10 @@ const AllReviewsPage = () => {
         console.error("Error fetching reviews:", error);
       }
     };
-  
+
     fetchReviews();
   }, []);
 
-  // Handle search input change
   const handleSearchChange = (e) => {
     const query = e.target.value.toLowerCase();
     setSearchQuery(query);
@@ -55,7 +53,6 @@ const AllReviewsPage = () => {
     setFilteredReviews(sorted);
   };
 
-  // Sorting logic
   const sortReviews = (a, b, order) => {
     if (order === "high-to-low") {
       return b.rating - a.rating;
@@ -71,7 +68,6 @@ const AllReviewsPage = () => {
     }
     return 0;
   };
-  
 
   const handleReviewClick = async (id) => {
     try {
@@ -89,7 +85,6 @@ const AllReviewsPage = () => {
       <div className="content-container">
         <h2 className="section-title">All Reviews</h2>
 
-        {/* Search and Sort Controls */}
         <div className="controls">
           <input
             type="text"
@@ -125,13 +120,12 @@ const AllReviewsPage = () => {
                 </p>
                 <p>{review.review.substring(0, 150)}...</p>
                 <div className="stars">
-                  <ReactStars
-                    count={5}
-                    value={review.rating}
-                    size={24}
-                    activeColor="#ffd700"
-                    isHalf={true}
-                    edit={false}
+                  <StarRatings
+                    rating={review.rating}
+                    starRatedColor="#ffd700"
+                    numberOfStars={5}
+                    starDimension="24px"
+                    starSpacing="4px"
                   />
                 </div>
               </div>
@@ -147,7 +141,7 @@ const AllReviewsPage = () => {
         onClose={() => setShowModal(false)}
         data={selectedReview}
       />
-      <Footer/>
+      <Footer />
     </div>
   );
 };

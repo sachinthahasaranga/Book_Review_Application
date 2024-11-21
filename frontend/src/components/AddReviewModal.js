@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import ReactStars from "react-rating-stars-component";
+import StarRatings from "react-star-ratings"; 
 import { addReview } from "../services/api";
-import Swal from "sweetalert2"; // Import SweetAlert2
+import Swal from "sweetalert2"; 
 import "../css/AddReviewModal.css";
 
 const AddReviewModal = ({ show, onClose, onSave }) => {
@@ -16,15 +16,15 @@ const AddReviewModal = ({ show, onClose, onSave }) => {
   const handleSave = async () => {
     setLoading(true);
     const token = localStorage.getItem("token");
-    const userId = JSON.parse(atob(token.split(".")[1])).id; // Decode user ID from token
-  
+    const userId = JSON.parse(atob(token.split(".")[1])).id;
+
     try {
       const response = await addReview({ ...newReview, userId });
       const createdReview = response.review;
       onSave(createdReview); 
       setNewReview({ title: "", author: "", review: "", rating: 0 });
       onClose();
-  
+
       Swal.fire({
         icon: "success",
         title: "Review Added!",
@@ -80,13 +80,13 @@ const AddReviewModal = ({ show, onClose, onSave }) => {
         </div>
         <div className="form-group">
           <label>Rating</label>
-          <ReactStars
-            count={5}
-            value={newReview.rating}
-            size={24}
-            activeColor="#ffd700"
-            isHalf={true}
-            onChange={(newRating) =>
+          <StarRatings
+            rating={newReview.rating}
+            starRatedColor="#ffd700"
+            numberOfStars={5}
+            starDimension="24px"
+            starSpacing="4px"
+            changeRating={(newRating) =>
               setNewReview({ ...newReview, rating: newRating })
             }
           />
