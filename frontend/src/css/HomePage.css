@@ -90,26 +90,26 @@
   }
   
   .review-card-centered h3 {
-    font-family: 'Lora', serif; /* Elegant font for titles */
-    font-size: 1.8rem; /* Larger and more prominent */
-    font-weight: bold; /* Emphasize the title */
+    font-family: 'Lora', serif; 
+    font-size: 1.8rem; 
+    font-weight: bold; 
     margin-bottom: 0.5rem;
-    color: #ffd700; /* Golden color to grab attention */
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Subtle shadow for depth */
+    color: #ffd700; 
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); 
   }
   
   .review-card-centered p {
-    font-family: 'Merriweather', serif; /* Modern serif for readability */
-    font-size: 1rem; /* Slightly larger for better readability */
+    font-family: 'Merriweather', serif; 
+    font-size: 1rem; 
     margin: 0.5rem 0;
-    color: #ffffff; /* Keep the text white */
-    line-height: 1.5; /* Add spacing for better readability */
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Enhance readability */
+    color: #ffffff; 
+    line-height: 1.5; 
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); 
   }
   
   .review-card-centered strong {
-    font-family: 'Roboto Slab', serif; /* Different serif font for contrast */
-    color: #ffd700; /* Highlight "Author" in gold */
+    font-family: 'Roboto Slab', serif; 
+    color: #ffd700; 
   }
   
   .stars {

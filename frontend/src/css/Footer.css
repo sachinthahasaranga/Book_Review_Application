@@ -5,21 +5,18 @@ body, html {
   flex-direction: column;
 }
 
-/* Root app container */
 .app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-/* Main content takes up the remaining space */
 .main-content {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-/* Footer styles */
 .footer {
   background-color: rgba(0, 0, 0, 0.8);
   color: #fff;

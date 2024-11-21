@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { getReviewsByUser, deleteReview } from "../services/api";
-import StarRatings from "react-star-ratings"; // Replace ReactStars with StarRatings
+import StarRatings from "react-star-ratings";
 import { FaEdit, FaTrashAlt, FaPlus } from "react-icons/fa";
 import { Tooltip } from "react-tooltip";
 import AddReviewModal from "../components/AddReviewModal";
