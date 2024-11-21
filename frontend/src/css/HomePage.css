@@ -1,8 +1,8 @@
 /* Main container */
 .homepage-container {
-    
     min-height: 100vh;
     padding-top: 0px;
+    
   }
   
   .landing-image-container {
@@ -10,13 +10,15 @@
     text-align: center;
     color: white;
     margin-top: 0px;
+    
   }
   
   .landing-image {
     width: 100%;
     max-height: 600px;
     object-fit: cover;
-    filter: brightness(85%); /* Slightly darkens the image for better text visibility */
+    filter: brightness(85%);
+    
   }
   
   .landing-text {
@@ -25,6 +27,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+    
   }
   
   .landing-text h1 {
@@ -52,6 +55,7 @@
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 2rem;
+    
   }
   
   .review-list {
@@ -59,6 +63,7 @@
     flex-direction: column;
     align-items: center;
     gap: 1.5rem; /* Space between each review card */
+    
   }
   
   .review-card-centered {
@@ -71,6 +76,7 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
   }
   
   .review-card-centered:hover {
@@ -86,6 +92,7 @@
   .review-card-centered p {
     font-size: 1rem;
     margin: 0.5rem 0;
+    
   }
   
   .stars {

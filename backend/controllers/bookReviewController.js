@@ -3,7 +3,7 @@ const BookReview = require("../models/BookReview");
 // Get all reviews
 const getReviews = async (req, res) => {
   try {
-    const reviews = await BookReview.find();
+    const reviews = await BookReview.find().sort({ createdAt: -1 });
     res.status(200).json(reviews);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -14,7 +14,7 @@ const getReviewsByUser = async (req, res) => {
   const { userId } = req.params;
 
   try {
-    const reviews = await BookReview.find({ userId }); // Fetch reviews by userId
+    const reviews = await BookReview.find({ userId }).sort({ createdAt: -1 });
     res.status(200).json(reviews);
   } catch (error) {
     console.error("Error fetching user reviews:", error);
@@ -42,7 +42,6 @@ const getReviewById = async (req, res) => {
 const addReview = async (req, res) => {
     const { title, author, review, rating, userId } = req.body;
     try {
-      // Ensure the userId is provided
       if (!userId) {
         return res.status(400).json({ message: "User ID is required" });
       }
@@ -72,6 +71,7 @@ const deleteReview = async (req, res) => {
     }
   };
 
+  //update 
   const updateReview = async (req, res) => {
     const { id } = req.params;
     const { title, author, review, rating } = req.body;

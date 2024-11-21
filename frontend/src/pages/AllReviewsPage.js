@@ -1,31 +1,32 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import { getAllReviews, getReviewById } from "../services/api"; // Import API functions
-import ReactStars from "react-rating-stars-component"; // For star ratings
-import ReviewDetailModal from "../components/ReviewDetailModal"; // Import the modal component
-import "../css/AllReviewsPage.css"; // Custom styles
+import { getAllReviews, getReviewById } from "../services/api";
+import ReactStars from "react-rating-stars-component";
+import ReviewDetailModal from "../components/ReviewDetailModal"; 
+import "../css/AllReviewsPage.css";
 import Footer from "../components/Footer";
 
 const AllReviewsPage = () => {
-  const [reviews, setReviews] = useState([]); // All reviews
-  const [filteredReviews, setFilteredReviews] = useState([]); // Reviews filtered by search and sort
-  const [searchQuery, setSearchQuery] = useState(""); // Search input value
-  const [selectedReview, setSelectedReview] = useState(null); // Selected review details
-  const [showModal, setShowModal] = useState(false); // Modal visibility
-  const [sortOrder, setSortOrder] = useState("none"); // Sorting order
+  const [reviews, setReviews] = useState([]); 
+  const [filteredReviews, setFilteredReviews] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedReview, setSelectedReview] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [sortOrder, setSortOrder] = useState("none");
 
-  // Fetch all reviews when the component loads
+
   useEffect(() => {
     const fetchReviews = async () => {
       try {
         const allReviews = await getAllReviews();
-        setReviews(allReviews);
-        setFilteredReviews(allReviews); // Initialize filteredReviews
+        const sortedReviews = [...allReviews].sort((a, b) => sortReviews(a, b, "newest"));
+        setReviews(sortedReviews);
+        setFilteredReviews(sortedReviews);
       } catch (error) {
         console.error("Error fetching reviews:", error);
       }
     };
-
+  
     fetchReviews();
   }, []);
 
@@ -40,11 +41,10 @@ const AllReviewsPage = () => {
           review.title.toLowerCase().includes(query) ||
           review.author.toLowerCase().includes(query)
       )
-      .sort((a, b) => sortReviews(a, b, sortOrder)); // Apply sorting during search
+      .sort((a, b) => sortReviews(a, b, sortOrder)); 
     setFilteredReviews(filtered);
   };
 
-  // Handle sorting dropdown change
   const handleSortChange = (e) => {
     const order = e.target.value;
     setSortOrder(order);
@@ -63,8 +63,15 @@ const AllReviewsPage = () => {
     if (order === "low-to-high") {
       return a.rating - b.rating;
     }
-    return 0; // No sorting
+    if (order === "newest") {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    }
+    if (order === "oldest") {
+      return new Date(a.createdAt) - new Date(b.createdAt);
+    }
+    return 0;
   };
+  
 
   const handleReviewClick = async (id) => {
     try {
@@ -96,13 +103,14 @@ const AllReviewsPage = () => {
             onChange={handleSortChange}
             className="sort-dropdown"
           >
-            <option value="none">Sort by Rating</option>
+            <option value="none">Sort</option>
             <option value="high-to-low">High to Low</option>
             <option value="low-to-high">Low to High</option>
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
           </select>
         </div>
 
-        {/* Reviews List */}
         <div className="reviews-list">
           {filteredReviews.length > 0 ? (
             filteredReviews.map((review) => (
@@ -134,7 +142,6 @@ const AllReviewsPage = () => {
         </div>
       </div>
 
-      {/* Modal for Full Review Details */}
       <ReviewDetailModal
         show={showModal}
         onClose={() => setShowModal(false)}

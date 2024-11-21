@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import { getReviewsByUser, deleteReview } from "../services/api"; // Import deleteReview
+import { getReviewsByUser, deleteReview } from "../services/api";
 import ReactStars from "react-rating-stars-component";
 import { FaEdit, FaTrashAlt, FaPlus } from "react-icons/fa";
 import { Tooltip } from "react-tooltip";
@@ -73,7 +73,7 @@ const MyReviewsPage = () => {
   };
 
   const handleSaveReview = (review) => {
-    setMyReviews([...myReviews, review]); 
+    setMyReviews([review, ...myReviews]); 
   };
 
   const handleReviewClick = (review) => {
@@ -164,8 +164,8 @@ const MyReviewsPage = () => {
       <EditReviewModal
         show={showEditModal}
         onClose={() => setShowEditModal(false)}
-        reviewData={selectedReview} // Pass selected review for editing
-        onSave={handleSaveEditedReview} // Update state after edit
+        reviewData={selectedReview} 
+        onSave={handleSaveEditedReview}
       />
 
       <ReviewDetailModal
