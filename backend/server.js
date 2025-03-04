@@ -9,7 +9,20 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+//app.use(cors());
+//allow cross origin policy
+const corsOptions ={
+    origin:'*', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
+}
+app.use(cors(corsOptions));
+app.use(function(req, res,next){
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'content-type');
+    next();
+});
 app.use(express.json());
 
 // Database connection
